@@ -1,5 +1,5 @@
-import { Request, Response, NextFunction } from 'express';
-import { hasPermission } from '../../../extraTs/utils';
+import { Response, NextFunction } from 'express';
+import { hasPermission } from '../../extraTs/utils';
 import * as jwt from 'jsonwebtoken';
 import config from '../../config/configuration';
 import UserRepository from '../../repositories/user/UserRepository';

@@ -4,8 +4,10 @@ const options: any = {
   apis: [
     'dist/src/**/*.js',
     './dist/src/libs/swagger.js',
-    './dist/src/controllers/trainee/routes.js',
-    './dist/src/controllers/user/routes.js'
+    './dist/src/controllers/owner/routes.js',
+    './dist/src/controllers/user/routes.js',
+    './dist/src/controllers/productManager/routes.js',
+    './dist/src/controllers/order/routes.js',
   ],
   swaggerDefinition: {
     basePath: '/api',

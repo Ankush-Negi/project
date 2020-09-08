@@ -1,10 +1,8 @@
 import { Router } from 'express';
-import TraineeController from './Controller';
+import ManagerController from './Controller';
 import authMiddleWare from '../../libs/routes/authMiddleWare';
-import validationHandler from '../../libs/routes/validationHandler';
-import { validation } from '../trainee/validation';
 
-const traineeRouter: Router = Router();
+const managerRouter: Router = Router();
 
 /**
  * @swagger
@@ -22,25 +20,15 @@ const traineeRouter: Router = Router();
  *           example: 2019-03-10T19:51:37.066Z
  *
  *
- *     TraineeResponse:
+ *     Response:
  *       type: object
  *       properties:
  *         name:
- *           example: Ankush Negi
- *         address:
- *           example: Noida
- *         mobile_number:
- *           example: 9717043261
- *         role:
- *           example: trainee
- *         dob:
- *           example: 1998-04-25
- *         hobbies:
- *           example: ["football"]
- *         email:
- *           example: ankush.negi@successive.tech
- *         password:
- *           example: ankushnegi@123
+ *           example: FootBall
+ *         price:
+ *           example: 1000
+ *         description:
+ *           example: Good product
  *         createdAt:
  *           example: 2019-03-10T19:51:37.066Z
  *         createdBy:
@@ -62,12 +50,12 @@ const traineeRouter: Router = Router();
 
 /**
  * @swagger
- * /trainee:
+ * /product:
  *   get:
  *     tags:
- *       - Trainee
- *     name: Find user
- *     summary: Find User List
+ *       - ProductManager
+ *     name: Find product
+ *     summary: Find Product List
  *     security:
  *       - Bearer: []
  *     consumes:
@@ -88,7 +76,7 @@ const traineeRouter: Router = Router();
  *         name: sort
  *         type: string
  *       - in: query
- *         name: email
+ *         name: all
  *         type: string
  *     responses:
  *       200:
@@ -98,16 +86,16 @@ const traineeRouter: Router = Router();
  *             status:
  *               example: OK
  *             message:
- *               example: Trainee List
+ *               example: Product List
  *             data:
  *               type: object
  *               properties:
- *                 total_user:
+ *                 total_product:
  *                   example: 1
- *                 traineeList:
+ *                 productList:
  *                   type: array
  *                   items:
- *                     $ref: '#/definitions/TraineeResponse'
+ *                     $ref: '#/definitions/Response'
  *       403:
  *         schema:
  *           $ref: '#/definitions/Unauthorized'
@@ -115,21 +103,20 @@ const traineeRouter: Router = Router();
  *         schema:
  *           $ref: '#/definitions/500Response'
  */
-traineeRouter.get(
+managerRouter.get(
   '/',
-  authMiddleWare('getUsers', 'read'),
-  validationHandler(validation.get),
-  TraineeController.getAll
+  authMiddleWare('getProducts', 'read'),
+  ManagerController.getAll
 );
 
 /**
  * @swagger
- * /trainee:
+ * /product:
  *   post:
  *     tags:
- *       - Trainee
+ *       - ProductManager
  *     name: Create
- *     summary: Create User
+ *     summary: Create Product
  *     security:
  *       - Bearer: []
  *     consumes:
@@ -137,32 +124,19 @@ traineeRouter.get(
  *     parameters:
  *       - name: body
  *         in: body
- *         description: Details of the user to create
+ *         description: Details of the product to create
  *         schema:
  *           type: object
  *           properties:
  *             name:
  *               type: string
- *             email:
- *               type: string
- *             role:
- *               type: string
- *             password:
- *               type: string
- *             mobileNumber:
+ *             price:
  *               type: number
- *             dob:
- *               type: string
- *             hobbies:
- *               type: array
- *               items:
- *                 type: string
- *                 format: int64
- *             address:
+ *             description:
  *               type: string
  *           required:
- *             - email
- *             - password
+ *             - description
+ *             - price
  *             - name
  *     responses:
  *       200:
@@ -172,7 +146,7 @@ traineeRouter.get(
  *             status:
  *               example: OK
  *             message:
- *               example: Trainee Added Successfully
+ *               example: Product Added Successfully
  *       403:
  *         schema:
  *           $ref: '#/definitions/Unauthorized'
@@ -180,21 +154,20 @@ traineeRouter.get(
  *         schema:
  *           $ref: '#/definitions/500Response'
  */
-traineeRouter.post(
+managerRouter.post(
   '/',
-  authMiddleWare('getUsers', 'read'),
-  validationHandler(validation.create),
-  TraineeController.create
+  authMiddleWare('getProducts', 'write'),
+  ManagerController.create
 );
 
 /**
  * @swagger
- * /trainee:
+ * /product:
  *   put:
  *     tags:
- *       - Trainee
- *     name: Modify User
- *     summary: Update User Details
+ *       - ProductManager
+ *     name: Modify Product
+ *     summary: Update Product Details
  *     security:
  *       - Bearer: []
  *     consumes:
@@ -202,7 +175,7 @@ traineeRouter.post(
  *     parameters:
  *       - name: body
  *         in: body
- *         description: Details of the user to update
+ *         description: Details of the product to update
  *         schema:
  *           type: object
  *           properties:
@@ -213,22 +186,9 @@ traineeRouter.post(
  *               properties:
  *                 name:
  *                   type: string
- *                 email:
- *                   type: string
- *                 role:
- *                   type: string
- *                 password:
- *                   type: string
- *                 mobileNumber:
+ *                 price:
  *                   type: number
- *                 dob:
- *                   type: string
- *                 hobbies:
- *                   type: array
- *                   items:
- *                     type: string
- *                     format: int64
- *                 address:
+ *                 description:
  *                   type: string
  *           required:
  *             - id
@@ -240,7 +200,7 @@ traineeRouter.post(
  *             status:
  *               example: OK
  *             message:
- *               example: Trainee Updated Successfully
+ *               example: Product Updated Successfully
  *       403:
  *         schema:
  *           $ref: '#/definitions/Unauthorized'
@@ -248,22 +208,21 @@ traineeRouter.post(
  *         schema:
  *           $ref: '#/definitions/500Response'
  */
-traineeRouter.put(
+managerRouter.put(
   '/',
-  authMiddleWare('getUsers', 'read'),
-  validationHandler(validation.update),
-  TraineeController.update
+  authMiddleWare('getProducts', 'write'),
+  ManagerController.update
 );
 
 
 /**
  * @swagger
- * /trainee/{id}:
+ * /product/{id}:
  *   delete:
  *     tags:
- *       - Trainee
- *     name: Delete User
- *     summary: Delete User Details
+ *       - ProductManager
+ *     name: Delete Product
+ *     summary: Delete Product Details
  *     security:
  *       - Bearer: []
  *     consumes:
@@ -283,7 +242,7 @@ traineeRouter.put(
  *             status:
  *               example: OK
  *             message:
- *               example: Trainee Deleted Successfully
+ *               example: Product Deleted Successfully
  *       403:
  *         schema:
  *           $ref: '#/definitions/Unauthorized'
@@ -291,11 +250,10 @@ traineeRouter.put(
  *         schema:
  *           $ref: '#/definitions/500Response'
  */
-traineeRouter.delete(
+managerRouter.delete(
   '/:id',
-  authMiddleWare('getUsers', 'read'),
-  validationHandler(validation.delete),
-  TraineeController.delete
+  authMiddleWare('getProducts', 'write'),
+  ManagerController.delete
 );
 
-export default traineeRouter;
+export default managerRouter;

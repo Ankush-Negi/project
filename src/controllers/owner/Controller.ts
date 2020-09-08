@@ -3,16 +3,16 @@ import UserRepository from '../../repositories/user/UserRepository';
 import IRequest from '../../libs/routes/IRequest';
 import * as bcrypt from 'bcrypt';
 
-class TraineeController {
+class OwnerController {
   private userRepository = new UserRepository();
 
   static instance;
-  static getInstance = (): TraineeController => {
-    if (!TraineeController.instance) {
-      TraineeController.instance = new TraineeController();
-      return TraineeController.instance;
+  static getInstance = (): OwnerController => {
+    if (!OwnerController.instance) {
+      OwnerController.instance = new OwnerController();
+      return OwnerController.instance;
     }
-    return TraineeController.instance;
+    return OwnerController.instance;
   };
   create = async (req: IRequest, res: Response) => {
     const userId = req.user;
@@ -36,7 +36,7 @@ class TraineeController {
     }
     res.send({
       status: 'OK',
-      message: 'Trainee added successfully'
+      message: 'User added successfully'
     });
   };
 
@@ -56,7 +56,7 @@ class TraineeController {
     }
     res.send({
       status: 'OK',
-      message: 'Trainee deleted successfully'
+      message: 'User deleted successfully'
     });
   };
 
@@ -79,7 +79,7 @@ class TraineeController {
     }
     res.send({
       status: 'OK',
-      message: 'Trainee updated successfully'
+      message: 'User updated successfully'
     });
   };
 
@@ -117,7 +117,7 @@ class TraineeController {
     const { listCount, list } = getUsers;
     res.send({
       status: 'OK',
-      message: 'Trainee list : ',
+      message: 'User list : ',
       data: {
         total_user: listCount,
         list
@@ -126,4 +126,4 @@ class TraineeController {
   };
 }
 
-export default TraineeController.getInstance();
+export default OwnerController.getInstance();

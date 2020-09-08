@@ -28,6 +28,32 @@ class UserController {
     }
   };
 
+  signup = async (req: IRequest, res: Response, next: NextFunction) => {
+    const userId = req.user;
+    const id = await this.userRepository.generateId();
+    const { password, ...rest } = req.body;
+    const hashPassword: string = await bcrypt.hash(password, 10);
+    const dataTocreate = {
+      originalId: id,
+      _id: id,
+      password: hashPassword,
+      createdBy: userId,
+      createdAt: Date.now(),
+      ...rest
+     };
+    const user = await this.userRepository.create(dataTocreate);
+    if (!user) {
+      throw {
+        error: 'Error Occured',
+        message: 'Type of the entered data is not valid'
+      };
+    }
+    res.send({
+      status: 'OK',
+      message: 'SignUp successfully'
+    });
+  }
+
   login = async (req: IRequest, res: Response, next: NextFunction) => {
     const { email, password } = req.body;
     try {

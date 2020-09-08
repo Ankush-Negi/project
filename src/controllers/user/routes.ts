@@ -87,4 +87,65 @@ userRouter.get('/me', authMiddleWare('getUsers', 'read'), UserController.me);
  *               example: 2020-03-03T13:49:56.373Z
  */
 userRouter.post('/login', UserController.login);
+
+
+/**
+ * @swagger
+ * /User/signup:
+ *   post:
+ *     tags:
+ *       - Users
+ *     name: SignUp
+ *     summary: User signup
+ *     security:
+ *       - Bearer: []
+ *     consumes:
+ *       - application/json
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         description: Details of the user to signup
+ *         schema:
+ *           type: object
+ *           properties:
+ *             name:
+ *               type: string
+ *             email:
+ *               type: string
+ *             role:
+ *               type: string
+ *             password:
+ *               type: string
+ *             mobileNumber:
+ *               type: number
+ *             dob:
+ *               type: string
+ *             hobbies:
+ *               type: array
+ *               items:
+ *                 type: string
+ *                 format: int64
+ *             address:
+ *               type: string
+ *           required:
+ *             - email
+ *             - password
+ *             - name
+ *     responses:
+ *       200:
+ *         schema:
+ *           type: object
+ *           properties:
+ *             status:
+ *               example: OK
+ *             message:
+ *               example: SignUp Successfully
+ *       403:
+ *         schema:
+ *           $ref: '#/definitions/Unauthorized'
+ *       500:
+ *         schema:
+ *           $ref: '#/definitions/500Response'
+ */
+userRouter.post('/signup', authMiddleWare('getUsers', 'write'), UserController.signup);
 export default userRouter;

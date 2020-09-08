@@ -43,7 +43,7 @@ export const validation = Object.freeze({
       required: true,
       isObject: true,
       errorMessage: 'Data is required',
-      custom: function(dataToUpdate) {
+      custom: () => {
         console.log('custom validated');
       }
     }
