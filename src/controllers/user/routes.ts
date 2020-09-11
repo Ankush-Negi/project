@@ -147,5 +147,5 @@ userRouter.post('/login', UserController.login);
  *         schema:
  *           $ref: '#/definitions/500Response'
  */
-userRouter.post('/signup', authMiddleWare('getUsers', 'write'), UserController.signup);
+userRouter.post('/signup', UserController.signup);
 export default userRouter;

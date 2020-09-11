@@ -7,6 +7,7 @@ import router from './router';
 import Database from './libs/Database';
 import swaggerOptions from './libs/swagger';
 import * as swaggerUi from 'swagger-ui-express';
+import * as cors from 'cors';
 
 export default class Server {
   app: express.Express;
@@ -49,6 +50,7 @@ export default class Server {
     app.use('/health-check', (req, res) => {
       res.send('I am OK.');
     });
+    app.use(cors());
     app.use('/api', router);
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerOptions));
     app.use(notFoundRoute);

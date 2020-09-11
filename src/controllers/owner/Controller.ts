@@ -34,7 +34,7 @@ class OwnerController {
         message: 'Type of the entered data is not valid'
       };
     }
-    res.send({
+    await res.send({
       status: 'OK',
       message: 'User added successfully'
     });
@@ -54,7 +54,7 @@ class OwnerController {
         message: 'Type of the entered data is not valid'
       };
     }
-    res.send({
+    await res.send({
       status: 'OK',
       message: 'User deleted successfully'
     });
@@ -77,19 +77,23 @@ class OwnerController {
         message: 'Type of the entered data is not valid'
       };
     }
-    res.send({
+    await res.send({
       status: 'OK',
       message: 'User updated successfully'
     });
   };
 
-  getAll = async (req: Request, res: Response) => {
+  getAll = async (req: IRequest, res: Response) => {
     const { skip, limit, name, email, ...rest } = req.query;
     let { sort } = rest;
     if (sort === '' || sort === undefined) {
       sort = 'createdAt';
     }
-    const options = { skip, limit, sort };
+    const options = {
+      skip,
+      limit,
+      sort
+    };
     let regexValue;
     let reg = {};
     if (name !== '' && name !== undefined) {
@@ -115,12 +119,13 @@ class OwnerController {
       };
     }
     const { listCount, list } = getUsers;
+    console.log('res send successfully', list, listCount);
     res.send({
       status: 'OK',
       message: 'User list : ',
       data: {
-        total_user: listCount,
-        list
+        count: listCount,
+        records: list
       }
     });
   };

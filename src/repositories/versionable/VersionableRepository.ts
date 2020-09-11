@@ -62,6 +62,13 @@ export default class VersionableRepository<
   }
 
   async list(query, options) {
+    const skip = parseInt(options.skip, 10);
+    const limit = parseInt(options.limit, 10);
+    options = {
+      ...options,
+      skip,
+      limit,
+    }
     const list = await this.modelType
       .find(query, {}, options)
       .collation({locale: 'en'});

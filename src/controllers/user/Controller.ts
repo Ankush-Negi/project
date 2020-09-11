@@ -68,11 +68,12 @@ class UserController {
         const token = await jwt.sign(
           { email, originalId, role },
           config.secretKey,
-          { expiresIn: (60 * 60) / 4 }
+          { expiresIn: (60 * 60) }
         );
         res.send({
+          status: 'OK',
           message: 'Token Generated',
-          token
+          data: token
         });
       } else {
         throw new Error('Password is Invalid');
