@@ -118,13 +118,13 @@ class OwnerController {
         message: 'Type of the entered data is not valid'
       };
     }
+    const counts = await this.userRepository.count({ deletedAt: undefined });
     const { listCount, list } = getUsers;
-    console.log('res send successfully', list, listCount);
     res.send({
       status: 'OK',
       message: 'User list : ',
       data: {
-        count: listCount,
+        count: counts,
         records: list
       }
     });

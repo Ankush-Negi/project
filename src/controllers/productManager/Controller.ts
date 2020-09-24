@@ -60,7 +60,7 @@ class ManagerController {
   };
 
   update = async (req: IRequest, res: Response) => {
-    const { id, dataToUpdate } = req.body;
+    const { id, ...dataToUpdate } = req.body;
     const userId = req.user;
     const data = {
       id,
@@ -102,7 +102,7 @@ class ManagerController {
         ...query,
         deletedAt: undefined,
     };
-    if (all === '' && all === undefined) {
+    if (all === 'false' ) {
         query = {
             ...query,
             company: userId
@@ -115,13 +115,14 @@ class ManagerController {
         message: 'Type of the entered data is not valid'
       };
     }
+    const counts = await this.productRepository.count(query);
     const { listCount, list } = getProducts;
     res.send({
       status: 'OK',
       message: 'Product list : ',
       data: {
-        total_product: listCount,
-        productList: list
+        count: counts,
+        records: list
       }
     });
   };

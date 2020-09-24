@@ -17,15 +17,14 @@ class OrderController {
   create = async (req: IRequest, res: Response) => {
     const id = await this.orderRepository.generateId();
     const userId = req.user;
-    const { products } = req.body;
-    const quantity = products.length;
+    const { product, price } = req.body;
     const dataTocreate = {
       _id: id,
       originalId: id,
       createdBy: userId,
       createdAt: Date.now(),
-      products,
-      quantity,
+      product,
+      price,
      };
     const order = await this.orderRepository.create(dataTocreate);
     if (!order) {
@@ -85,9 +84,10 @@ class OrderController {
 
   getAll = async (req: IRequest, res: Response) => {
     const query = { createdBy: req.user, deletedAt: undefined };
+    const { skip, limit } = req.query;
     const options = {
-      skip: 0,
-      limit: 10,
+      skip,
+      limit,
     };
     const order = await this.orderRepository.list(query, options);
     if (!order) {
@@ -96,13 +96,14 @@ class OrderController {
         message: 'Type of the entered data is not valid'
       };
     }
+    const counts = await this.orderRepository.count(query);
     const { list, listCount } = order;
     res.send({
       status: 'OK',
       message: 'Order list : ',
       data: {
-        orders: listCount,
-        products: list
+        count: counts,
+        record: list,
       }
     });
   };

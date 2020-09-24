@@ -68,7 +68,7 @@ class UserController {
         const token = await jwt.sign(
           { email, originalId, role },
           config.secretKey,
-          { expiresIn: (60 * 60) }
+          { expiresIn: (60 * 60 * 60) }
         );
         res.send({
           status: 'OK',
