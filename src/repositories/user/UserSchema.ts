@@ -9,7 +9,6 @@ export default class UserSchema extends VersionableSchema {
       address: String,
       dob: Date,
       mobileNumber: Number,
-      hobbies: [String],
       password: String
     };
     super(userSchema, options);

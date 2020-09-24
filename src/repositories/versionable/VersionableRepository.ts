@@ -68,7 +68,7 @@ export default class VersionableRepository<
       ...options,
       skip,
       limit,
-    }
+    };
     const list = await this.modelType
       .find(query, {}, options)
       .collation({locale: 'en'});

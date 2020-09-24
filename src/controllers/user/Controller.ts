@@ -29,7 +29,6 @@ class UserController {
   };
 
   signup = async (req: IRequest, res: Response, next: NextFunction) => {
-    const userId = req.user;
     const id = await this.userRepository.generateId();
     const { password, ...rest } = req.body;
     const hashPassword: string = await bcrypt.hash(password, 10);
@@ -37,7 +36,7 @@ class UserController {
       originalId: id,
       _id: id,
       password: hashPassword,
-      createdBy: userId,
+      createdBy: id,
       createdAt: Date.now(),
       ...rest
      };

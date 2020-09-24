@@ -60,7 +60,7 @@ class ManagerController {
   };
 
   update = async (req: IRequest, res: Response) => {
-    const { id, ...dataToUpdate } = req.body;
+    const { id, dataToUpdate } = req.body;
     const userId = req.user;
     const data = {
       id,
