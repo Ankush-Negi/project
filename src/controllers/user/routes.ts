@@ -116,8 +116,6 @@ userRouter.post('/login', UserController.login);
  *               type: string
  *             password:
  *               type: string
- *             mobileNumber:
- *               type: number
  *             dob:
  *               type: string
  *             hobbies:

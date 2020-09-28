@@ -149,8 +149,6 @@ ownerRouter.get(
  *               type: string
  *             password:
  *               type: string
- *             mobileNumber:
- *               type: number
  *             dob:
  *               type: string
  *             hobbies:
@@ -219,8 +217,6 @@ ownerRouter.post(
  *                   type: string
  *                 password:
  *                   type: string
- *                 mobileNumber:
- *                   type: number
  *                 dob:
  *                   type: string
  *                 hobbies:

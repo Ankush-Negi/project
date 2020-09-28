@@ -15,9 +15,10 @@ export default async function seedData() {
     address: 'Noida',
     role: 'owner',
     dob: new Date('1998-04-25'),
-    mobileNumber: 9557126356,
     hobbies: ['football'],
-    password: hashPassword
+    password: hashPassword,
+    createdAt: new Date(),
+    createdBy: ownerId
   };
   const userCount = await userRepository.count({ deletedAt: undefined });
   if (userCount === 0) {
