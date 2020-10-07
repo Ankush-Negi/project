@@ -2,12 +2,12 @@ import * as swaggerJSDoc from 'swagger-jsdoc';
 
 const options: any = {
   apis: [
-    'dist/src/**/*.js',
-    './dist/src/libs/swagger.js',
-    './dist/src/controllers/owner/routes.js',
-    './dist/src/controllers/user/routes.js',
-    './dist/src/controllers/productManager/routes.js',
-    './dist/src/controllers/order/routes.js',
+    'dist/**/*.js',
+    './dist/libs/swagger.js',
+    './dist/controllers/owner/routes.js',
+    './dist/controllers/user/routes.js',
+    './dist/controllers/productManager/routes.js',
+    './dist/controllers/order/routes.js',
   ],
   swaggerDefinition: {
     basePath: '/api',
@@ -25,7 +25,7 @@ const options: any = {
         type: 'apiKey'
       }
     },
-    servers: ['http://localhost:9000']
+    servers: ['http://localhost:9000'],
   }
 };
 
